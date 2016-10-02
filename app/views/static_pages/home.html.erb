@@ -1,2 +1,8 @@
-<h1>StaticPages#home</h1>
-<p>Find me in app/views/static_pages/home.html.erb</p>
+<!--questa funzione provide mi permette di modificare il valore del titolo dinamicamente, uso la funzione 
+PROVIDE associando all'etichetta title il valore Home-->
+<% provide(:title, "Home") %>
+
+  
+<h1>Home</h1>
+  <p> This is the home page </p>
+  
