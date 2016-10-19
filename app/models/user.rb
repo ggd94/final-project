@@ -4,7 +4,7 @@ class User < ApplicationRecord
   before_save { self.email = email.downcase }
   
   has_secure_password
-  validates(:password, length: { minimum: 6 })
+  validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
 
   validates(:name, presence: true,length: { maximum: 50 })
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
@@ -27,13 +27,20 @@ class User < ApplicationRecord
   end
   
   def authenticated?(remember_token)
-    if remember_digest.nil?
-      false
+    return false if remember_digest.nil?
     BCrypt::Password.new(remember_digest).is_password?(remember_token)
   end
   
+  def logged_in_user
+    unless logged_in?
+      flash[:danger] = "Please log in."
+      redirect_to login_url
+    end
+  end
+    
   #si limita ad eliminare user remember e quindi ad eliminare eventuali cookies
   def forget
     update_attribute(:remember_digest, nil)
   end
+  
 end

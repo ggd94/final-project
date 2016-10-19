@@ -1,0 +1,16 @@
+<!-- utilizzo per la paginazione attraverso delle gemme nel gemfile
+                      metodo "magico" che ricerca automaticamente @users e mostra link per accedere ad altre pagine-->
+<!--render user  --rails ricerca automaticamente un partial di nome _user.html.erb-->
+ <!--rails deduce che @users e una lista di User e rails li fa scorrere automaticamente con il partial _user.hetml.erb-->
+
+
+<% provide(:title, 'All users') %>
+<h1>All users</h1>
+
+<%= will_paginate %>
+
+<ul class="users">
+  <%= render @users %>
+</ul>
+
+<%= will_paginate %>
